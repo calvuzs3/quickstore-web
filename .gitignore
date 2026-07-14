@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# environment files — NEVER commit these
+.env.local
+.env*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# logs
+npm-debug.log*
+
+# claude
+/CLAUDE*
+/.claude
