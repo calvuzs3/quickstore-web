@@ -32,3 +32,22 @@ export interface LoginOrgChoiceResponse {
 export interface SelectOrgRequest {
   orgId: string;
 }
+
+/** Rispecchia ArticleSummaryDto/ArticleListResponse in ArticleListDto.kt (quickstore-shared). */
+export interface ArticleSummary {
+  id: string;
+  name: string;
+  categoryId: string;
+  categoryName: string;
+  unitOfMeasure: string;
+  codeOem: string;
+  codeErp: string;
+  codeBm: string;
+  reorderLevel: number;
+  totalQuantity: number;
+}
+
+export interface ArticleListResponse {
+  items: ArticleSummary[];
+  total: number;
+}

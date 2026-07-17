@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 
 export default async function DashboardPage() {
@@ -12,10 +13,8 @@ export default async function DashboardPage() {
       <p style={{ fontSize: 14, marginBottom: 16, color: "var(--color-text-muted)" }}>
         Ruolo: {roleCode}
       </p>
-      <p style={{ fontSize: 13, color: "var(--color-text-muted)" }}>
-        Le schermate dati (articoli, giacenze, movimenti) non sono ancora disponibili
-        qui: quickstore-server non espone ancora una REST di lettura puntuale per il
-        dominio, solo il pull massivo usato dai device per la sincronizzazione completa.
+      <p style={{ fontSize: 13 }}>
+        <Link href="/articles">Vai all&apos;elenco articoli →</Link>
       </p>
     </div>
   );

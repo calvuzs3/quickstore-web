@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 import LogoutButton from "./LogoutButton";
 
@@ -20,7 +21,10 @@ export default async function DashboardLayout({
         background: "var(--color-surface)",
         borderBottom: "1px solid var(--color-border)",
       }}>
-        <span style={{ fontWeight: 700 }}>QuickStore</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          <span style={{ fontWeight: 700 }}>QuickStore</span>
+          <Link href="/articles" style={{ fontSize: 13 }}>Articoli</Link>
+        </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 13, color: "var(--color-text-muted)" }}>{orgName}</span>
           <LogoutButton />
