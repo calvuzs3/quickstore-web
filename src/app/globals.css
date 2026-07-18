@@ -137,6 +137,11 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  /* Quando .form-group è a sua volta un item di una riga flex (es. i tre campi
+     Codice OEM/ERP/BM in ArticleForm), il min-width:auto di default lo blocca alla
+     larghezza intrinseca del contenuto: con 3+ campi in riga questo fa traboccare
+     l'ultimo fuori dalla card invece di restringerli in proporzione. */
+  min-width: 0;
 }
 
 .form-label {
@@ -147,6 +152,7 @@ input, select, textarea {
 
 .form-input,
 .form-select {
+  width: 100%;
   padding: 8px 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
