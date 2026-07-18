@@ -78,3 +78,16 @@ export const MEMBERSHIP_ROLES: { level: number; code: string; label: string }[] 
   { level: 5, code: "OPERATOR", label: "Operatore" },
   { level: 9, code: "ADMIN", label: "Admin" },
 ];
+
+/** Rispecchia CreateUserRequest/UserDto in UserAdminDto.kt (quickstore-shared). */
+export interface CreateUserRequest {
+  email: string;
+  password: string;
+  displayName?: string;
+}
+
+export interface UserAdmin {
+  id: string;
+  email: string;
+  displayName: string | null;
+}

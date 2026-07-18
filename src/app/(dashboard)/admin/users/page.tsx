@@ -1,6 +1,6 @@
 import { requireAdmin } from "@/lib/auth";
 import { getMemberships } from "@/lib/api";
-import InviteMembershipForm from "./InviteMembershipForm";
+import AddMembershipForm from "./AddMembershipForm";
 import MembershipRow from "./MembershipRow";
 
 export default async function AdminUsersPage() {
@@ -24,7 +24,7 @@ export default async function AdminUsersPage() {
         </div>
       </div>
 
-      <InviteMembershipForm />
+      <AddMembershipForm />
 
       {error && <div className="alert alert-error" style={{ marginBottom: 16 }}>{error}</div>}
 
