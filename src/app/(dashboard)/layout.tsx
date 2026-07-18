@@ -8,7 +8,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   // requireAuth verifica il cookie di sessione firmato HMAC; redirect a /login se non valido
-  const { orgName, roleCode } = await requireAuth();
+  const { orgName, roleCode, roleLevel } = await requireAuth();
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--color-bg)" }}>
@@ -24,6 +24,9 @@ export default async function DashboardLayout({
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
           <span style={{ fontWeight: 700 }}>QuickStore</span>
           <Link href="/articles" style={{ fontSize: 13 }}>Articoli</Link>
+          {roleLevel >= 5 && (
+            <Link href="/categories" style={{ fontSize: 13 }}>Categorie</Link>
+          )}
           {roleCode === "ADMIN" && (
             <Link href="/admin/users" style={{ fontSize: 13 }}>Admin</Link>
           )}

@@ -79,10 +79,26 @@ export interface UpdateArticleRequest {
   codeBm: string;
 }
 
-/** Rispecchia ArticleCategoryDto in SyncDto.kt — solo i campi usati dal <select> categoria. */
+/** Rispecchia ArticleCategoryDto in SyncDto.kt. */
 export interface ArticleCategory {
   id: string;
   name: string;
+  description: string;
+  notes: string;
+  isDeleted: boolean;
+}
+
+/** Rispecchia CreateArticleCategoryRequest/UpdateArticleCategoryRequest in ArticleCategoryAdminDto.kt. */
+export interface CreateArticleCategoryRequest {
+  name: string;
+  description?: string;
+  notes?: string;
+}
+
+export interface UpdateArticleCategoryRequest {
+  name: string;
+  description: string;
+  notes: string;
 }
 
 /** Rispecchia MembershipDto/InviteMembershipRequest/UpdateMembershipRoleRequest in MembershipDto.kt. */
