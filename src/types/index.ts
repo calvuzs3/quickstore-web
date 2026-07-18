@@ -91,3 +91,9 @@ export interface UserAdmin {
   email: string;
   displayName: string | null;
 }
+
+/** Rispecchia UpdateUserRequest in UserAdminDto.kt — email esclusa, congelata. */
+export interface UpdateUserRequest {
+  displayName: string | null;
+  password?: string;
+}
