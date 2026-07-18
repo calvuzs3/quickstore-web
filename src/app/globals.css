@@ -28,7 +28,11 @@
      un'eccezione deliberata (bianco in chiaro, graphite in scuro). */
   --color-on-primary-button: #ffffff;
 
-  --header-height: 56px;
+  --sidebar-width: 220px;
+  /* Chrome della sidebar: sempre grafite scuro, indipendente dal tema chiaro/scuro
+     dell'app (stesso trattamento di quickreport-web) — non è --color-surface,
+     che invece cambia con il tema. */
+  --color-sidebar-bg: #262626;
 
   --radius:    4px;
   --radius-lg: 9px;
