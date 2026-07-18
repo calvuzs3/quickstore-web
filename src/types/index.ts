@@ -51,3 +51,30 @@ export interface ArticleListResponse {
   items: ArticleSummary[];
   total: number;
 }
+
+/** Rispecchia MembershipDto/InviteMembershipRequest/UpdateMembershipRoleRequest in MembershipDto.kt. */
+export interface Membership {
+  id: string;
+  userId: string;
+  email: string;
+  displayName: string | null;
+  roleLevel: number;
+  roleCode: string;
+}
+
+export interface InviteMembershipRequest {
+  email: string;
+  roleLevel: number;
+}
+
+export interface UpdateMembershipRoleRequest {
+  roleLevel: number;
+}
+
+// I tre ruoli noti in tutto il progetto (Android, server) — nessun endpoint da cui
+// leggerli dinamicamente, vedi roles table in quickstore-server/migrations/V001__init.sql.
+export const MEMBERSHIP_ROLES: { level: number; code: string; label: string }[] = [
+  { level: 0, code: "GUEST", label: "Guest" },
+  { level: 5, code: "OPERATOR", label: "Operatore" },
+  { level: 9, code: "ADMIN", label: "Admin" },
+];

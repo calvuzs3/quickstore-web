@@ -101,3 +101,9 @@ export async function requireAuth(): Promise<Session> {
   if (!session) redirect("/login");
   return session;
 }
+
+export async function requireAdmin(): Promise<Session> {
+  const session = await requireAuth();
+  if (session.roleCode !== "ADMIN") redirect("/dashboard");
+  return session;
+}
