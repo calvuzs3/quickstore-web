@@ -1,6 +1,6 @@
 import { getSessionToken } from "@/lib/auth";
 import { KTOR_URL } from "@/lib/config";
-import type { ArticleListResponse, Membership } from "@/types";
+import type { ArticleCategory, ArticleListResponse, ArticleSummary, Membership } from "@/types";
 
 export interface GetArticlesParams {
   search?: string;
@@ -37,6 +37,57 @@ export async function getArticles(params: GetArticlesParams = {}): Promise<Artic
 
   if (!res.ok) {
     throw new Error(`Errore caricamento articoli (HTTP ${res.status})`);
+  }
+
+  return res.json();
+}
+
+// Sola lettura, stesso pattern di getArticles — serve alla pagina di modifica per
+// precaricare i valori attuali (GET /articles non supporta lookup per singolo id).
+export async function getArticle(id: string): Promise<ArticleSummary> {
+  const token = await getSessionToken();
+  if (!token) throw new Error("Non autenticato");
+
+  let res: Response;
+  try {
+    res = await fetch(`${KTOR_URL}/articles/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    });
+  } catch (err) {
+    throw new Error(
+      `Impossibile raggiungere il server Ktor (${KTOR_URL}). Verificare che il server sia attivo.`,
+      { cause: err }
+    );
+  }
+
+  if (!res.ok) {
+    throw new Error(`Errore caricamento articolo (HTTP ${res.status})`);
+  }
+
+  return res.json();
+}
+
+// Sola lettura — popola il <select> categoria nel form di creazione/modifica articolo.
+export async function getArticleCategories(): Promise<ArticleCategory[]> {
+  const token = await getSessionToken();
+  if (!token) throw new Error("Non autenticato");
+
+  let res: Response;
+  try {
+    res = await fetch(`${KTOR_URL}/article-categories`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    });
+  } catch (err) {
+    throw new Error(
+      `Impossibile raggiungere il server Ktor (${KTOR_URL}). Verificare che il server sia attivo.`,
+      { cause: err }
+    );
+  }
+
+  if (!res.ok) {
+    throw new Error(`Errore caricamento categorie (HTTP ${res.status})`);
   }
 
   return res.json();

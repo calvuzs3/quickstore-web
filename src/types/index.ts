@@ -37,6 +37,7 @@ export interface SelectOrgRequest {
 export interface ArticleSummary {
   id: string;
   name: string;
+  description: string;
   categoryId: string;
   categoryName: string;
   unitOfMeasure: string;
@@ -44,12 +45,44 @@ export interface ArticleSummary {
   codeErp: string;
   codeBm: string;
   reorderLevel: number;
+  notes: string;
   totalQuantity: number;
 }
 
 export interface ArticleListResponse {
   items: ArticleSummary[];
   total: number;
+}
+
+/** Rispecchia CreateArticleRequest/UpdateArticleRequest in ArticleListDto.kt. */
+export interface CreateArticleRequest {
+  name: string;
+  description?: string;
+  categoryId: string;
+  unitOfMeasure: string;
+  reorderLevel?: number;
+  notes?: string;
+  codeOem?: string;
+  codeErp?: string;
+  codeBm?: string;
+}
+
+export interface UpdateArticleRequest {
+  name: string;
+  description: string;
+  categoryId: string;
+  unitOfMeasure: string;
+  reorderLevel: number;
+  notes: string;
+  codeOem: string;
+  codeErp: string;
+  codeBm: string;
+}
+
+/** Rispecchia ArticleCategoryDto in SyncDto.kt — solo i campi usati dal <select> categoria. */
+export interface ArticleCategory {
+  id: string;
+  name: string;
 }
 
 /** Rispecchia MembershipDto/InviteMembershipRequest/UpdateMembershipRoleRequest in MembershipDto.kt. */

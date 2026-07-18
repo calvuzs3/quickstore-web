@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 import { getArticles } from "@/lib/api";
 
@@ -8,7 +9,8 @@ export default async function ArticlesPage({
 }: {
   searchParams: Promise<{ search?: string; page?: string }>;
 }) {
-  await requireAuth();
+  const session = await requireAuth();
+  const canWrite = session.roleLevel >= 5;
 
   const { search, page: pageParam } = await searchParams;
   const page = Math.max(1, Number(pageParam) || 1);
@@ -34,6 +36,9 @@ export default async function ArticlesPage({
           <h1 className="page-title">Articoli</h1>
           <p className="page-subtitle">{data.total} articoli</p>
         </div>
+        {canWrite && (
+          <Link href="/articles/new" className="btn btn-primary">+ Nuovo articolo</Link>
+        )}
       </div>
 
       <form method="GET" style={{ marginBottom: 16 }}>
@@ -61,6 +66,7 @@ export default async function ArticlesPage({
               <th>Cod. OEM</th>
               <th>Cod. ERP</th>
               <th>Giacenza</th>
+              {canWrite && <th></th>}
             </tr>
           </thead>
           <tbody>
@@ -77,12 +83,19 @@ export default async function ArticlesPage({
                       {article.totalQuantity} {article.unitOfMeasure}
                     </span>
                   </td>
+                  {canWrite && (
+                    <td style={{ textAlign: "right" }}>
+                      <Link href={`/articles/${article.id}/edit`} className="btn btn-secondary btn-sm">
+                        Modifica
+                      </Link>
+                    </td>
+                  )}
                 </tr>
               );
             })}
             {data.items.length === 0 && !error && (
               <tr>
-                <td colSpan={5} style={{ textAlign: "center", color: "var(--color-text-muted)" }}>
+                <td colSpan={canWrite ? 6 : 5} style={{ textAlign: "center", color: "var(--color-text-muted)" }}>
                   Nessun articolo trovato.
                 </td>
               </tr>

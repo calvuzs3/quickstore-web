@@ -107,3 +107,12 @@ export async function requireAdmin(): Promise<Session> {
   if (session.roleCode !== "ADMIN") redirect("/dashboard");
   return session;
 }
+
+// OPERATOR (roleLevel >= 5) o superiore — stesso livello minimo di POST/PUT
+// /articles lato server, non ADMIN-only (un OPERATOR crea/modifica articoli di
+// routine su Android).
+export async function requireOperator(): Promise<Session> {
+  const session = await requireAuth();
+  if (session.roleLevel < 5) redirect("/articles");
+  return session;
+}
