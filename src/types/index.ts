@@ -33,6 +33,13 @@ export interface SelectOrgRequest {
   orgId: string;
 }
 
+/** Rispecchia ArticleLocationStockDto in ArticleListDto.kt (quickstore-shared). */
+export interface ArticleLocationStock {
+  locationId: string;
+  locationName: string;
+  quantity: number;
+}
+
 /** Rispecchia ArticleSummaryDto/ArticleListResponse in ArticleListDto.kt (quickstore-shared). */
 export interface ArticleSummary {
   id: string;
@@ -46,12 +53,23 @@ export interface ArticleSummary {
   codeBm: string;
   reorderLevel: number;
   notes: string;
+  // Se la richiesta è filtrata per locationId, è la giacenza in quella sola ubicazione
+  // (non il totale su tutte) — vedi commento su ArticleSummaryDto lato server.
   totalQuantity: number;
+  stockByLocation: ArticleLocationStock[];
 }
 
 export interface ArticleListResponse {
   items: ArticleSummary[];
   total: number;
+}
+
+/** Rispecchia LocationDto in SyncDto.kt (quickstore-shared) — sola lettura lato web, vedi getLocations. */
+export interface Location {
+  id: string;
+  name: string;
+  notes: string;
+  isDeleted: boolean;
 }
 
 /** Rispecchia CreateArticleRequest/UpdateArticleRequest in ArticleListDto.kt. */

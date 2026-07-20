@@ -8,9 +8,13 @@ import { readErrorMessage } from "@/lib/clientErrors";
 interface ArticleFormProps {
   categories: ArticleCategory[];
   article?: ArticleSummary; // presente solo in modalità modifica
+  // "/articles" + eventuale filtro (locationId/search) attivo prima di entrare in
+  // questo form — costruito dal Server Component chiamante a partire dai propri
+  // searchParams, così tornando indietro non si perde il magazzino selezionato.
+  articlesHref?: string;
 }
 
-export default function ArticleForm({ categories, article }: ArticleFormProps) {
+export default function ArticleForm({ categories, article, articlesHref = "/articles" }: ArticleFormProps) {
   const router = useRouter();
   const isEditing = article !== undefined;
 
@@ -73,7 +77,7 @@ export default function ArticleForm({ categories, article }: ArticleFormProps) {
         throw new Error(await readErrorMessage(res));
       }
 
-      router.push("/articles");
+      router.push(articlesHref);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Errore salvataggio articolo");
